@@ -10,20 +10,26 @@ get '/show' do
       id: 1,
       title: "7/6の日記",
       content: "この日は大雨だった。"
+
   }
 
   # diaryをJSONテキストに変換して返す
   # （Rubyでは、最終行はメソッドの返り値(return)）
   diary.to_json
 end
+get '/show' do
+  param1 = params['param1']
+  param2 = params['param2']
 
+  '1番目: ' + param1 + ', 2番目: ' + param2   # レスポンスを返す
+end
 # POST /edit
 # (HTTPのPOSTメソッドで /edit というパスにリクエストを送る）
 # 要・リクエストボディ（パラメータを渡す必要がある）
 
 post '/edit' do
   # リクエストボディを読み込む
-  body = request.body.read
+  body = request.body.read.force_encoding("utf-8")
 
   if body == ''
     # HTTPのステータスコード「400」（Bad Request）を返す
